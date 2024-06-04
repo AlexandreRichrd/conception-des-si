@@ -353,7 +353,7 @@ SELECT
 FROM Apprenti a
 JOIN Acteur ac ON a.acteur_key = ac.id_acteur
 JOIN Entreprise e ON a.entreprise_actuelle_key = e.id_entreprise;
-
+/
 CREATE VIEW v_professeurs_centres AS
 SELECT 
     p.id_prof,
@@ -367,7 +367,7 @@ SELECT
 FROM Professeur p
 JOIN Acteur ac ON p.acteur_key = ac.id_acteur
 JOIN Centre_formation cf ON p.centre_formation_key = cf.id_centre_formation;
-
+/
 CREATE VIEW v_echeances_statuts AS
 SELECT 
     e.id_echeance,
@@ -376,7 +376,7 @@ SELECT
     s.statut_echeance
 FROM Echeance e
 JOIN Statut_echeance s ON e.Statut_echeance = s.statut_echeance;
-
+/
 CREATE OR REPLACE PROCEDURE update_document_status (
     p_id_document NUMBER,
     p_new_status VARCHAR2
@@ -386,7 +386,7 @@ BEGIN
     SET statut = p_new_status
     WHERE id_document = p_id_document;
 END;
-
+/
 CREATE OR REPLACE PROCEDURE notify_promo_alternants (
     p_id_promo NUMBER,
     p_notification_type VARCHAR2,
@@ -401,8 +401,7 @@ BEGIN
         VALUES (seq_notification.NEXTVAL, apprenant.acteur_key, p_notification_type, 1, SYSDATE);
     END LOOP;
 END;
-
-
+/
 CREATE OR REPLACE PROCEDURE list_pending_documents IS
     CURSOR c_pending_documents IS
         SELECT id_document, nom, type, semestre
@@ -413,7 +412,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Document ID: ' || doc.id_document || ' Nom: ' || doc.nom || ' Type: ' || doc.type || ' Semestre: ' || doc.semestre);
     END LOOP;
 END;
-
+/
 CREATE OR REPLACE PROCEDURE list_overdue_echeances IS
     CURSOR c_overdue_echeances IS
         SELECT id_echeance, nom, semestre, date_echeance
